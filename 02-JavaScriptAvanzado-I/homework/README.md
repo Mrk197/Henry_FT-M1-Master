@@ -11,6 +11,7 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 3. Las variables declaradas son una propiedad no-configurable de su contexto de ejecución (de función o global). Las variables sin declarar son configurables (p. ej. pueden borrarse).
 https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/var
 
+4. Al no estar declarada no tiene hoisting. 
 
 ```javascript
 x = 1;
@@ -30,15 +31,15 @@ var c = function(a, b, c) {
   console.log(b); //9
 }
 c(8,9,10);
-console.log(b); //10
-console.log(x); //1
+console.log(b); //10 Contexto Global
+console.log(x); //1 Contexto Global 
 ```
 
 
 
 ```javascript
 console.log(bar); //undefined
-console.log(baz); //ReferenceError
+console.log(baz); //ReferenceError (is not defined)
 foo(); 
 function foo() { console.log('Hola!'); } // (Hola!) ya no se imprime por el error
 var bar = 1;
@@ -48,26 +49,26 @@ baz = 2;
 ```javascript
 var instructor = "Tony";
 if(true) {
-    var instructor = "Franco";
+    var instructor = "Franco"; // Sobre escribe ya que las sentencias de control no abren un nuevo contexto ...
 }
-console.log(instructor); //Franco
+console.log(instructor); //...por eso imprime Franco
 ```
 
 ```javascript
-var instructor = "Tony";
+var instructor = "Tony"; // --Contexto Global 
 console.log(instructor); //Tony
-(function() {
+(function() { // --Nuevo contexto 
    if(true) {
       var instructor = "Franco"; 
       console.log(instructor); //Franco
    }
-})();
+})(); //-- Fin Nuevo Contexto
 console.log(instructor); //Tony
 ```
 
 ```javascript
 var instructor = "Tony";
-let pm = "Franco";
+let pm = "Franco"; //let respeta los bloques y no tiene 
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
@@ -89,7 +90,7 @@ console.log(pm); //Franco
 "4" - 2     //2
 "4px" - 2   //NaN
 7 / 0       //Infinity
-{}[0]       //Objeto [0]
+{}[0]       //Undefined
 parseInt("09") //9
 5 && 2      //2
 2 && 5      //5 
@@ -97,7 +98,7 @@ parseInt("09") //9
 0 || 5      //0
 [3]+[3]-[10] //23  ~ "3" + "3" - "10"
 3>2>1       //false --> 3>2 = false --> false>1 = false
-[] == ![]   //false --> false == false
+[] == ![]   //true --> false == false
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -158,7 +159,7 @@ console.log(obj.prop.getFullname()); //Aurelio de Rosa porque esta haciendo refe
 
 var test = obj.prop.getFullname;
 
-console.log(test()); //Juan Perez porque la variable test esta declarada en el contexto global entonces this.fullname hace referencia a la var fullname del contexto global
+console.log(test()); //Undefined porqque no hay una propiedad fullname en el contexto global, sólo una var 
 ```
 
 ### Event loop
