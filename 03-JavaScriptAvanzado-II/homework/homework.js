@@ -12,19 +12,25 @@
   nuevoContador()     // 1
   nuevoContador()     // 2
   nuevoContador()     // 3
-*/
+
  function counter(i) {
     var contador = i;
     return function (){
       console.log("contador ", contador++);
     }
   }
-  /*
-  const otroContador = counter(5);
-  otroContador();
-  otroContador();
-  otroContador();
-   */
+  */
+  var contador = 0;
+  function counter() {
+    return function (){   
+      return ++contador;
+    }
+  }
+  //const otroContador = counter();
+ // console.log(otroContador());
+ // console.log(otroContador());
+ // console.log(otroContador());
+  
 
 
  /*
@@ -61,14 +67,11 @@ function cacheFunction(cb) {
     const resultados = {};
     return function (arg){
      if(resultados.hasOwnProperty(arg)){
-        return('Resultado en cache: ' + resultados[arg]);
+        return(resultados[arg]);
      }
      else{
-      var resultado = cb(arg);
-      //console.log(arg);
-      resultados[arg] = resultado;
-      //console.log(resultados);
-      return('Resultado: ' + resultado);
+      resultados[arg] = cb(arg);
+      return(resultados[arg]);
      }
     }
 }
