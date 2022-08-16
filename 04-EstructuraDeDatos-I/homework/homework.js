@@ -22,6 +22,12 @@ function nFactorial(n) {
   return factorial;
 }
 
+function nFactorial2(n){
+  
+}
+
+
+
 console.log(nFactorial(8));
 
 function nFibonacci(n) {
@@ -61,31 +67,55 @@ class Node{
 class Queue {
   constructor(){
     this.first = null;
-    this.second = null;
+    this.last = null;
     this.size = 0;
   }
 
   enqueue(value){
     let nuevoNodo = new Node(value);
-    if(this.size == 0){ //si esta vacio 
-      this.first = nuevoNodo.data;
-      nuevoNodo.next = nuevoNodo;
-      var currentTop = nuevoNodo;
+    console.log(nuevoNodo);
+    if(this.size === 0){ //si esta vacio 
+      this.first = nuevoNodo;
+      this.last = nuevoNodo;
+    }
+    else if(this.size === 1){ //si es el segundo
+      this.first.next = nuevoNodo;
+      this.last = nuevoNodo;
     }
     else{
-      this.currentTop.next = nuevoNodo;
-      this.second = nuevoNodo.data;
-      currentTop = nuevoNodo;
+      this.last.next = nuevoNodo;
+      this.last = nuevoNodo;
     }
     this.size ++;
   };
 
-  dequeue(){};
+  dequeue(){
+    if(this.first === null){ //si esta vacia
+      console.log("undefined");
+      return "Undefined";
+    }
+    else{ //sin aún no esta vacio '
+      var newFirst = this.first.next;
+      this.first = newFirst;
+      this.size--;
+    }
+  };
+
+  size(){
+    return this.size; 
+  };
 }
 
 let stack = new Queue();
 stack.enqueue('primero');
 stack.enqueue('2');
+stack.enqueue('3');
+stack.enqueue('4');
+console.log(stack);
+stack.dequeue();
+stack.dequeue();
+//stack.dequeue();
+console.log(stack.size);
 console.log(stack);
 
 // No modifiquen nada debajo de esta linea
