@@ -22,7 +22,7 @@ function nFactorial(n) {
   return factorial;
 }
 
-//console.log(nFactorial(8));
+console.log(nFactorial(8));
 
 function nFibonacci(n) {
   if(n===0 || n===1){
@@ -51,12 +51,42 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 
 Pueden utilizar class o función constructora.
 */
-
-function Queue() {
-  this.enqueue = function(){};
-  this.dequeue = function(){};
-  this.size;
+class Node{
+  constructor(data){
+    this.data = data;
+    this.next = null;
+  }
 }
+
+class Queue {
+  constructor(){
+    this.first = null;
+    this.second = null;
+    this.size = 0;
+  }
+
+  enqueue(value){
+    let nuevoNodo = new Node(value);
+    if(this.size == 0){ //si esta vacio 
+      this.first = nuevoNodo.data;
+      nuevoNodo.next = nuevoNodo;
+      var currentTop = nuevoNodo;
+    }
+    else{
+      this.currentTop.next = nuevoNodo;
+      this.second = nuevoNodo.data;
+      currentTop = nuevoNodo;
+    }
+    this.size ++;
+  };
+
+  dequeue(){};
+}
+
+let stack = new Queue();
+stack.enqueue('primero');
+stack.enqueue('2');
+console.log(stack);
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
