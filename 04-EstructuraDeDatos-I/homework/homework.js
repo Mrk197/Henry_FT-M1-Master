@@ -1,5 +1,6 @@
 'use strict'
 
+
 /*
 Definir las funciones recursivas nFactorial y nFibonacci.
 
@@ -14,23 +15,22 @@ Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 Como ejercicio adicional y completamente opcional, al terminar de resolver este problema pueden intentar definir funciones que logren los mismos resultados pero de manera iterativa.
 */
 
-function nFactorial(n) {
+/*function nFactorial2(n) {
   let factorial=n;
+  if(n<2) return 1;
   for(let i=n-1; i > 0; i--){
     factorial  *= i;
   }
   return factorial;
+}*/
+//CON RECURSIVIDAD 
+function nFactorial(n){
+  if(n<0) return "Error: no es un número positivo";
+  if(n<2) return 1; //0,1
+  return n * nFactorial(n-1);
 }
 
-function nFactorial2(n){
-  
-}
-
-
-
-console.log(nFactorial(8));
-
-function nFibonacci(n) {
+/*function nFibonacci2(n) {
   if(n===0 || n===1){
     return n;
   }
@@ -45,6 +45,12 @@ function nFibonacci(n) {
     }
     return resultado;
   }
+}*/
+//CON RECURSIVIDAD 
+function nFibonacci(n){
+  if(n===0) return n; //0
+  if(n < 3) return 1; //2,1 
+  return nFibonacci(n-1) + nFibonacci(n-2);
 }
 
 //console.log(nFibonacci(8));
@@ -57,14 +63,16 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 
 Pueden utilizar class o función constructora.
 */
-class Node{
+
+//CON CLASE
+/*class Node{
   constructor(data){
     this.data = data;
     this.next = null;
   }
 }
 
-class Queue {
+class Queue2 {
   constructor(){
     this.first = null;
     this.last = null;
@@ -116,7 +124,24 @@ stack.dequeue();
 stack.dequeue();
 //stack.dequeue();
 console.log(stack.size);
-console.log(stack);
+console.log(stack);*/
+
+
+//CON FUNCIÓN CONSTRUCTORA
+function Queue(){
+  this.arr = [];
+  this.enqueue = function(data){ //Forma 1 de agregar métodos
+    this.arr.push(data);
+  }
+}
+
+Queue.prototype.dequeue = function(){//Forma 2 de agregar métodos
+  return this.arr.shift();
+} 
+Queue.prototype.size = function(){
+  return this.arr.length;
+}
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
