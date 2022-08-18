@@ -36,12 +36,12 @@ function LinkedList() {
     let elimindo = this.head.value;
     this.head = this.head.next;
     return elimindo;
-  }
+  };
 
 
   this.remove = function(){
     var elimindo = null;
-    if(this.head == null){ 
+    if(this.head == null){ //si esta vacio
       return null;
     }
     else if(this.head.next != null ){ //si no es el único nodo
@@ -63,7 +63,13 @@ function LinkedList() {
   };
 
 
-  this.search = function(){};
+  this.search = function(value){
+    if(this.head == null){ //si esta vacio
+      return null;
+    }
+    let index = 0;
+    let temp = this.head;
+  };
 }
 
 function Node(data) {
