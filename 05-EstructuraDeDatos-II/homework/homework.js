@@ -11,7 +11,77 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 
-function LinkedList() {}
+function LinkedList() {
+
+  this.head = null;
+  this.tail = null;
+
+  this.add = function(value){
+    var node = new Node(value);
+    if(this.tail === null){ //si esta vacía
+      node.next = this.head;
+      this.head = node;
+      this.tail = node;
+    }
+    else{//si no esta vacia 
+      this.tail.next = node;
+      this.tail = node;
+    }
+  };
+
+  this.removefirst = function(){
+    if(this.head === null){ 
+      return null;
+    }
+    let elimindo = this.head.value;
+    this.head = this.head.next;
+    return elimindo;
+  }
+
+
+  this.remove = function(){
+    var elimindo = null;
+    if(this.head == null){ 
+      return null;
+    }
+    else if(this.head.next != null ){ //si no es el único nodo
+      var pre = this.head;
+      var temp = this.head.next;
+      while(temp.next != null){ //hasta que no exista un siguiente nodo --> hasta llegar a tail
+        pre = temp;
+        temp = temp.next;
+      };
+      elimindo = temp.value;
+      pre.next = null; //elminamos referencia a último nodo 
+      this.tail = pre; //nuevo tail
+      return elimindo;
+    }
+    elimindo = this.tail.value;
+    this.head = null;
+    this.tail = null;
+    return elimindo;
+  };
+
+
+  this.search = function(){};
+}
+
+function Node(data) {
+  this.value = data;
+  this.next = null;
+}
+
+let newList = new LinkedList();
+newList.add('first');
+newList.add('second');
+newList.add(81);
+console.log(newList);
+console.log(newList.remove());
+console.log(newList.remove());
+console.log(newList);
+console.log(newList.remove());
+console.log(newList);
+console.log(newList.remove());
 
 function Node(value) {}
 
