@@ -12,64 +12,114 @@
 */
 
 function BinarySearchTree(root) {
-  this.root = new Node(root);
-  this.size = 1;
-  var currentRoot = this.root;
+  this._length = 1;
+  this.value = root;
+  this.left = null;
+  this.right = null;
+  this.arr = [];
 
   this.size = function(){
-    return this.size;
+    return this._length;
   }
 
-  this.insert = function(value){   
-    if(value != currentRoot.value){ //si no existe el valor
-      //determinar si va a la izq. o der.
-      if(value < currentRoot.value){//si es menor va a la izq.
-        if(!currentRoot.left){ //si el nodo esta vacio
-          let newValue = new Node(value); //crea el nuevo nodo 
-          currentRoot.left = newValue; //lo inserta
+  this.insert = function(value){     
+      if (value !=this.value) { //si no existe el valor
+        if(value < this.value){//si es menor va a la izq.
+          if(!this.left){ //si rama izq esta vacia 
+           this.left = new BinarySearchTree(value); //crea el nuevo nodo
+            this._length++;
+
+          }
+          else{ //no esta vacio
+            this.left.insert(value);
+          }
         }
-        else{ //no esta vacio
-          currentRoot = currentRoot.left;
-          this.insert(value);
+        else{ // si es mayor va a la der.
+          if(!this.right){ //si rama der esta vacia 
+            this.right = new BinarySearchTree(value); //crea el nuevo nodo 
+            this._length++;
+
+          }
+          else{ //no esta vacio
+            this.right.insert(value);
+          }
         }
-      } 
-      else{ // si es mayor va a la der.
-        if(!currentRoot.rigth){ //si el nodo esta vacio 
-          let newValue = new Node(value); //crea el nuevo nodo 
-          currentRoot.rigth = newValue;
-        }
-        else{ //no esta vacio
-          currentRoot = currentRoot.rigth;
-          this.insert(value);
-        }
-      }  
-    }
+      }
+
     //si es igual no hace nada
-    this.size++; //se incremente el tamaño 
   }
 
-  this.contains = function(){
+  this.contains = function(value){
+    console.log("value",this.value,typeof(this.value));
+    //console.log(typeof(value));
+    if(this.value == value){ //el valor es igual a la raíz?
+      return true;
+    }
+    //es mayor o menor?
+    else if(value < this.value){ //es menor
+      //hay un valor en el nodo izquierdo?
+      if(this.left){ //si
+        console.log("si hay en izq");
+        return this.left.contains(value); //ver si esta el valor
+      }
+      else{ //no
+        return false;
+      }
+    }
+    else{ //es mayor
+      //hay un valor en el nodo derecho?
+      if(this.right){ //si
+        return this.right.contains(value); //ver si esta el valor
+      }
+      else{ //no
+        return false;
+      }
+    }
+  }
+} 
+
+BinarySearchTree.prototype.depthFirstForEach = function(order){
+  if(order=="post-order"){
+    if(this.left){ //si hay izq
+     this.left.depthFirstForEach(order);
+    }
+    else if(this.right){ //si hay derecha
+      this.right.depthFirstForEach(order);
+    }
+    else{ //rai
+      console.log("VAL", this.value);
+      return this.arr.push(this.value);
+    }
+  }
+
+  else if(order=="pre-order"){
 
   }
-}
+  else{ //in-order
 
-BinarySearchTree.prototype.depthFirstForEach = function(){
-
+  }
 }
 
 BinarySearchTree.prototype.breadthFirstForEach = function(){
   
 }
 
-function Node(data) {
-  this.value = data;
-  this.left = null;
-  this.rigth = null;
-}
+
+let arbol = new BinarySearchTree(20);
+arbol.insert(12);
+console.log(arbol.size());
+console.log(arbol);
+arbol.insert(22);
+arbol.insert(5);
+arbol.insert(0);
+arbol.insert(1);
+console.log(arbol);
+console.log(arbol.right.value);
+console.log(arbol.depthFirstForEach("post-order"));
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
-
 module.exports = {
   BinarySearchTree,
 };
