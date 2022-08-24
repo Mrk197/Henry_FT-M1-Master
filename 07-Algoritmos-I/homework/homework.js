@@ -1,35 +1,39 @@
 'use strict'
 // No cambies los nombres de las funciones.
 var divisor = 2;
-var arrayFactores=[];
+var arrayFactores=[1];
 
 function factorear(num) {
   // Factorear el número recibido como parámetro y devolver en un array
   // los factores por los cuales se va dividiendo a dicho número (De menor a mayor)
   // Ej: factorear(180) --> [1, 2, 2, 3, 3, 5] Ya que 1x2x2x3x3x5 = 180 y son todos números primos
   // Tu código:
-  if(num === 1) return num;
+  if(num === 1) return arrayFactores;
   else if(num === divisor){
     arrayFactores.push(num);
-    console.log(arrayFactores);
-    return arrayFactores.join(",");
+    //console.log(arrayFactores);
+    let factores = arrayFactores;
+    //console.log(factores);
+    arrayFactores = [1]; //se reinicia array
+    divisor = 2;
+    return factores;
   }
   else if(num%divisor === 0){ //si el resultado de la divición es entero 
     arrayFactores.push(divisor);
     let nuevoNum = num/divisor;
-    factorear(nuevoNum);
+    return factorear(nuevoNum);
   }
   else{
     divisor++;
     console.log(divisor);
-    factorear(num);
+    return factorear(num);
   }
 }
 
-console.log(factorear(1));
-console.log(factorear(2));
-console.log(factorear(3));
-console.log(factorear(15));
+//console.log(factorear(180));
+//console.log(factorear(32));
+//console.log(factorear(33));
+//console.log(factorear(15));
 //console.log(factorear(18));
 //console.log(factorear(48));
 
