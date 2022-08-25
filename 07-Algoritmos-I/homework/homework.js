@@ -76,23 +76,32 @@ function bubbleSort(array) {
       if(subArray[0]>subArray[1]){ //se comparan 2 elementos
         array.splice(i,2,subArray[1],subArray[0]); //se intermcabia la posición si el primer valor es mayor 
         i++;
+        console.log("ARRAY", array);
       }
       else{
-        cont++; //se contabiliza la cantidad de comparaciones sin cambio 
+        i++;
+        cont++; //se contabiliza la cantidad de comparaciones sin cambio
+        console.log("CONT", cont); 
       }
     }
     j++;
-    if(cont === array.length-j) return array; //se han recorrido todos los elementos del arreglo sin ningún cambio 
+    if(cont === array.length-j){ //se han recorrido todos los elementos del arreglo sin ningún cambio 
+      i=0;
+      cont=0;
+      //j=1;
+      return array;
+    }
     else{
       //se reinician valores 
       i=0;
       cont=0;
-      bubbleSort(array); //recorrer arreglo nuevamente 
+      j=1;
+      return bubbleSort(array); //recorrer arreglo nuevamente 
     }
 }
 
 console.log(bubbleSort([5, 1, 4, 2, 8]));
-
+console.log(bubbleSort([10, 10, 16, 12])); 
 
 function insertionSort(array) {
   // Implementar el método conocido como insertionSort para ordenar de menor a mayor
