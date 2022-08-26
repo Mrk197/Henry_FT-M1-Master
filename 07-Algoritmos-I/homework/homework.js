@@ -3,7 +3,7 @@
 var divisor = 2;
 var arrayFactores=[1];
 var i=0, j=1;
-var cont;
+var cont=0;
 
 function factorear(num) {
   // Factorear el número recibido como parámetro y devolver en un array
@@ -13,9 +13,7 @@ function factorear(num) {
   if(num === 1) return arrayFactores;
   else if(num === divisor){
     arrayFactores.push(num);
-    //console.log(arrayFactores);
     let factores = arrayFactores;
-    //console.log(factores);
     arrayFactores = [1]; //se reinicia array
     divisor = 2;
     return factores;
@@ -44,51 +42,26 @@ function bubbleSort(array) {
   // el array recibido como parámetro
   // Devolver el array ordenado resultante
   // Tu código:
-  /*let subArray = array.slice(i,i+2);//seleccionar primeros 2 elementos 
-  console.log("subArray", subArray);
-    if(subArray[0] > subArray[1]){ //se comparan 2 elementos
-      array.splice(i,2,subArray[1],subArray[0]); //se intermcabia la posición si el primer valor es mayor 
-      if(i+1 < array.length){ //si aún no se recorre todo el arreglo 
-        i++; //se mueve una posición
-        console.log(array);
-        return bubbleSort(array); //se compara siguiente par de elementos 
-      }
-      else{ //ya se recorrio todo el arreglo
-        if(cont == array.length-j) return array; //se han recorrido todos los elementos del arreglo sin ningún cambio 
-        else{
-          j++; //disminuir en 1 el tamaño del arreglo ya que el último elemento esta ordenado 
-          i=0; //regresamos a la primera posición
-          cont=0; //reiniciar contador 
-          console.log("TODO", array)
-          return bubbleSort(array); //recorrer arreglo nuevamente 
-        }
-      } 
-    }
-    else{
-      cont ++; //se contabiliza la cantidad de comparaciones sin cambio 
-      i++; //se mueve de posición 
-      return bubbleSort(array); //se compara siguiente par de elementos 
-    } */
-    console.log("tamaño ",array.length-j);
-    while(i+1 < array.length-j){ //recorrer el arreglo 
+   /* console.log("tamaño ",array.length-j);
+    while(i+1 <= array.length-j){ //recorrer el arreglo 
       let subArray = array.slice(i,i+2);//seleccionar par de elementos
-      console.log("SUB", subArray);
+      //console.log("SUB", subArray);
       if(subArray[0]>subArray[1]){ //se comparan 2 elementos
         array.splice(i,2,subArray[1],subArray[0]); //se intermcabia la posición si el primer valor es mayor 
         i++;
-        console.log("ARRAY", array);
+        //console.log("ARRAY", array);
       }
       else{
         i++;
         cont++; //se contabiliza la cantidad de comparaciones sin cambio
-        console.log("CONT", cont); 
+        //console.log("CONT", cont); 
       }
     }
     j++;
     if(cont === array.length-j){ //se han recorrido todos los elementos del arreglo sin ningún cambio 
       i=0;
       cont=0;
-      //j=1;
+      j=1;
       return array;
     }
     else{
@@ -97,18 +70,58 @@ function bubbleSort(array) {
       cont=0;
       j=1;
       return bubbleSort(array); //recorrer arreglo nuevamente 
+    }*/
+  let swap = true;
+  while(swap){
+    swap = false;
+    for(let i=0; i < array.length; i++){
+      if(array[i] > array[i+1]){
+        let temp = array[i];
+        array[i] = array[i+1];
+        array[i+1] = temp;
+        swap = true;
+      }
     }
+  }
+  console.log(array);
+  return array;
 }
 
-console.log(bubbleSort([5, 1, 4, 2, 8]));
-console.log(bubbleSort([10, 10, 16, 12])); 
+//console.log(bubbleSort([5, 1, 4, 2, 8]));
+//console.log(bubbleSort([10, 10, 8,16, 12])); 
 
 function insertionSort(array) {
   // Implementar el método conocido como insertionSort para ordenar de menor a mayor
   // el array recibido como parámetro utilizando arreglos
   // Devolver el array ordenado resultante
   // Tu código:
+  /*let i=0;
+  let subArray = array.slice(i,i+2);
+  while(i <= array.length-1)
+  {
+    for(let i=subArray.length-1; i==0; i--){ //recorrer nuevo arreglo del ultimo al primero 
+      if(subArray[i-1]>subArray[i]){ //se comparan 2 elementos
+        subArray.splice(i-1,2,subArray[i],subArray[i-1]); //se intermcabia la posición el último con el penúltimo 
+        break;
+      }
+    }
+    i++;
+    subArray.concat(array.slice(i,i+1)) ; //añadir siguiente elemento 
+  }
+  return subArray;*/
 
+  for(let i=1; i < array.length; i++){
+    //guarda posición anterior
+    let x = i-1;
+    //guarda posición actual 
+    let temp = array[i];
+    while(x >= 0 && temp < array[x]){ //el valor actual es menor al anterior?
+      array[x+1] = array[x];
+      x--;
+    }
+    array[x+1] = temp;
+  }
+  return array;
 }
 
 
@@ -117,7 +130,21 @@ function selectionSort(array) {
   // el array recibido como parámetro utilizando dos arreglos
   // Devolver el array ordenado resultante
   // Tu código:
-
+  //identificación del número más chico
+  for(let i=0; i<array.length; i++){
+    let min = i;
+    //recorre el array buscando el número más chico 
+    for(let x = i+1; x < array.length; x++){
+      if(array[min] > array[x]) min = x; //actualizamos el index del número más chico
+    }   
+    //intercambiamos valores entre el num más chico y el "primer" valor 
+    if(i !== min){
+      let temp = array[i];
+      array[i] = array[min];
+      array[min] = temp;
+    }
+  }
+  return array;
 }
 
 
