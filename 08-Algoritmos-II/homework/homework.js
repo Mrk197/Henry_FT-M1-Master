@@ -1,12 +1,45 @@
 'use strict'
 // No cambies los nombres de las funciones.
 
+/*
+*/
+
 function quickSort(array) {
   // Implementar el método conocido como quickSort para ordenar de menor a mayor
   // el array recibido como parámetro
   // Devolver el array ordenado resultante
   // Tu código:
+  if(array.length <= 1){
+    return array;
 
+  }
+  let n = Math.floor(Math.random() * array.length);
+  var pivote = array[n];
+  var left = [];
+  var rigth = [];
+
+  for(var i= 0; i<array.length; i++){ //se recorre arreglo y se compara con el pivote 
+    if(i === n){
+      i++; //salta el pivote  
+    }
+    array[i] < pivote ? left.push(array[i]) : rigth.push(array[i]);
+  }
+  let ordenado = quickSort(left).concat(pivote, quickSort(rigth));
+  return ordenado.filter(function(dato){return dato != undefined });
+}
+
+function merge(left, right) {
+  let arr = [];
+   //recorrer mientras haya elemetos a la izquierda y derecha
+  while (left.length && right.length) { //si uno esta vacio, se termina
+      if (left[0] < right[0]) { //si el de la izquierda es menor 
+          arr.push(left.shift());  //ingresarlo al nuevo arreglo
+      } else { //si es el derecho el menor
+          arr.push(right.shift()); //ingresarlo al nuevo arreglo 
+      }
+  }
+  //regresar copia de nuevo arreglo y si quedaron elementos en subarrays
+  return [ ...arr, ...left, ...right ];
 }
 
 function mergeSort(array) {
@@ -14,48 +47,23 @@ function mergeSort(array) {
   // el array recibido como parámetro
   // Devolver el array ordenado resultante
   // Tu código:
-  let n = Math.floor(Math.random() * array.length);
-  console.log(n);
-  var pivote = array[n]; //elige número random como pivote
-  console.log(pivote);
-  var subIzq = [];
-  var subDer = [];
-  var arrayOrdenado = [];
-  for(let i=0; i < array.length; i++){ //recorrer arreglo y acomodar menores a la izq y mayores a la der 
-    if(i != n){ //saltar pocición del pivote 
-      if(array[i] > pivote){
-        subDer.push(array[i]);
-      }
-      else{
-        subIzq.push(array[i]);
-      }
-    }
+  const half =  Math.floor(array.length/2); //calcula la mitad
+  
+  // terminar hasta el se haya dividido al menor tamaño
+  if(array.length < 2){
+    return array; 
   }
-  //concatenar
-  subIzq.concat(pivote, subDer);
-  console.log("ORDENADO 1", subIzq);
-  return subIzq;
-  //arrayOrdenado.concat(izq, pivote, der);
-  //return arrayOrdenado;
-  /*else{ //segui dividiendo
-    let izq = [];
-    let der = [];
-    if(!subIzq){ //si esta vacio 
-      der = mergeSort(subDer); //sólo se hace la derecha 
-    }
-    else if(!subDer){
-      izq = mergeSort(subIzq); //sólo se hace la izquierda
-    }
-    else{ //se hacen ambas
-      der = mergeSort(subDer);
-      izq = mergeSort(subIzq);
-    }
-    arrayOrdenado.concat(izq, pivote, der);
-    return arrayOrdenado;
-  }*/
+  
+  const left = array.splice(0, half) //divide a la mitad 
+  return merge(mergeSort(left),mergeSort(array)); //une elementos ordenados 
+  /*
+   */
 }
 
-console.log(mergeSort([5,8,15,20,2,5,40]));
+
+let a = [5,8,15,20,2,5,40];
+console.log(quickSort(a));
+console.log(mergeSort(a));
 
 // No modificar nada debajo de esta línea
 // --------------------------------
