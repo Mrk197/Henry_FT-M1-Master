@@ -145,6 +145,46 @@ console.log(textoGuiones('si funcionó'));
 console.log(textoUnderscore('-'));
 
 
+//EJERCICIOS EXTRAS
+//### Repeatify
+  String.prototype.repeatify = function(num) {
+    if(num < 0){
+      return "error: es un número negativo";
+    }
+    let newStr = '';
+    for(let i=0; i< num; i++){
+      newStr += this.valueOf();
+    }
+    return newStr;
+  }
+
+console.log('hola'.repeatify(5));
+
+
+//### Shapes
+var Shape = {
+  type: '',
+  getType: function (){
+    return this.type;
+  },
+  isPrototypeOf: function (){
+
+  }
+}
+
+function Triangle(a,b,c){
+  Shape.type = 'Triangle';
+  this.getPerimeter = function(){
+    return a+b+c;
+  }
+}
+
+
+var t = new Triangle(1, 2, 3);
+console.log(t instanceof Triangle);
+console.log(t.getPerimeter());
+console.log(t.getType());
+
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
