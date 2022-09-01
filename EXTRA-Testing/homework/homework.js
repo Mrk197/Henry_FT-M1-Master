@@ -23,15 +23,17 @@ function getRowNumber(letter) {
 
 function book(fila, asiento){
  if(checkSeatStatus(fila,asiento) === true){
-    return 'Seat in ${fila}${asiento} is not available';
+    return `Seat in ${fila}${asiento} is not available`;
  }
  else if(checkSeatStatus(fila,asiento) === false){
-    layout[fila][asiento].booked = true;
+    let f= getRowNumber(fila);
+    layout[f][asiento].booked = true;
     return `Seat in ${fila}${asiento} successfully booked`;
  }
 }
 
 module.exports = {
   checkSeatStatus,
-  getRowNumber
+  getRowNumber,
+  book
 }

@@ -1,4 +1,4 @@
-const { checkSeatStatus, getRowNumber } = require('../homework');
+const { checkSeatStatus, getRowNumber, book } = require('../homework');
 
 describe('checkSeatStatus', () => {
     it('checkSeatStatus is a function', () => {
@@ -32,8 +32,11 @@ describe('getRowNumber', () => {
     });
 });
 
-describe('getRowNumber', () => {
+describe('book', () => {
     it(' should return "Seat in XX successfully booked" if the given seat is not booked', () => {
-        expect(book('B',1)).toBe('Seat in B1 successfully booked');
+        expect(book('B',2)).toBe('Seat in B2 successfully booked');
+    });
+    it(' should return "Seat in XX is not available" if the given seat is booked', () => {
+        expect(book('C',1)).toBe('Seat in C1 is not available');
     });
 });
