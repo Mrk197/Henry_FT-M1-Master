@@ -34,7 +34,9 @@ describe('getRowNumber', () => {
 
 describe('book', () => {
     it(' should return "Seat in XX successfully booked" if the given seat is not booked', () => {
+        expect(checkSeatStatus('B',2)).toBe(false);
         expect(book('B',2)).toBe('Seat in B2 successfully booked');
+        expect(checkSeatStatus('B',2)).toBe(true);
     });
     it(' should return "Seat in XX is not available" if the given seat is booked', () => {
         expect(book('C',1)).toBe('Seat in C1 is not available');
