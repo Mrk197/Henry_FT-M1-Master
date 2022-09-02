@@ -7,14 +7,20 @@ const layout = [
     [{type: 'ECONOMIC', booked: false}, {type: 'ECONOMIC', booked: true}, {type: 'ECONOMIC', booked: false}, {type: 'ECONOMIC', booked: false}]
   ];
 
+function getSeat(fila, asiento) {
+  const f = getRowNumber(fila);
+  let seat = layout[f][asiento];
+  return seat;
+}
+
 function checkSeatStatus(a,b) {
     if(typeof a !== 'string') throw new TypeError('First parameter is not a string');
     if(typeof b !== 'number') throw new TypeError('Second parameter is not a number');
+    //Revisar si un String de un caracter
+    if(a.length !== 1) throw new TypeError('Length string not valid');
 
-    let fila = getRowNumber(a);
-
-    return layout[fila][b].booked;
-
+    const seat = getSeat(a,b);
+    return seat.booked;
 }
 
 function getRowNumber(letter) {
@@ -31,6 +37,8 @@ function book(fila, asiento){
     return `Seat in ${fila}${asiento} successfully booked`;
  }
 }
+
+
 
 module.exports = {
   checkSeatStatus,

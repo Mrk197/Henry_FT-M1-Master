@@ -1,7 +1,7 @@
 const { checkSeatStatus, getRowNumber, book } = require('../homework');
 
 describe('checkSeatStatus', () => {
-    it('checkSeatStatus is a function', () => {
+    xit('checkSeatStatus is a function', () => {
     expect(typeof checkSeatStatus).toBe('function');
     });
 
@@ -13,13 +13,21 @@ describe('checkSeatStatus', () => {
     expect(() => checkSeatStatus('A','4')).toThrow(new TypeError('Second parameter is not a number'));
     });
 
-    it('should return true if the given seat defined by row and column is booked', () => {
+    xit('should return true if the given seat defined by row and column is booked', () => {
     expect(checkSeatStatus('A', 1)).toBe(true);
     });
     
-    it('should return false if the given seat defined by row and column is not booked', () => {
+    xit('should return false if the given seat defined by row and column is not booked', () => {
     expect(checkSeatStatus('E', 3)).toBe(false);
     });
+
+    it('El String recibido es una letra y no una palabra o un string vacio', () =>{
+        expect(() => checkSeatStatus('Fila E', 3)).toThrow(new TypeError('Length string not valid'));
+    });
+
+    /*it('Verificar que la letra ingresada sea de una fila valida', () => {
+        expect(() => );
+    });*/
 });
 
 describe('getRowNumber', () => {
