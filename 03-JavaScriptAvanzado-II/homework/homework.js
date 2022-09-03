@@ -163,26 +163,27 @@ console.log('hola'.repeatify(5));
 
 //### Shapes
 var Shape = {
-  type: '',
+  type: 'type',
   getType: function (){
     return this.type;
-  },
-  isPrototypeOf: function (){
-
   }
 }
 
-function Triangle(a,b,c){
-  Shape.type = 'Triangle';
-  this.getPerimeter = function(){
+
+
+/*function Triangle(a,b,c){
+  getPerimeter = function(){
     return a+b+c;
   }
-}
+}*/
 
+//crate a Triangle from Shape prototype
+let Triangle = Object.create(Shape);
+Triangle.type = 'Triangle';
 
 var t = new Triangle(1, 2, 3);
 console.log(t instanceof Triangle);
-console.log(t.getPerimeter());
+//console.log(t.getPerimeter());
 console.log(t.getType());
 
 // No modifiquen nada debajo de esta linea
